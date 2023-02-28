@@ -20,13 +20,31 @@ ul {
   margin: 0;
   padding: 0;
 }
-li {
+li ,
+input {
   border: 1px solid #f7f5f5;
   margin: 0;
   padding: 15px 15px 15px 40px;
   font-weight: 200;
   font-size: 1.5rem;
   display: flex;
+  background-color: #f9f9f9
+}
+input {
+  width: 490px;
+  outline: none;
+  color: #bfbfbf;
+}
+input:hover {
+  background-color: #fff;
+}
+input:focus,
+input:active {
+  border-color: transparent;
+
+}
+small{
+  font-weight: 100;
 }
 .erase{
   margin-left: auto;
@@ -43,9 +61,6 @@ li:hover .erase {
 .footer {
   padding:10px;
   margin: 0;
-}
-small{
-  font-weight: 100;
 }
 .border1,
 .border2 {
