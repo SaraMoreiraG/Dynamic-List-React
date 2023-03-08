@@ -1,58 +1,160 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 function List() {
-	const [list, setList] = useState([]);
-	const [input, setInput] = useState('');
-	const count = list.length;
+	const [toDoList, setToDoList] = useState([]);
+	let toDoListFilter = toDoList.filter(todo => todo.done === false);
+	let count = toDoListFilter.length;
 
-	window.addEventListener("keydown", handlekeydown, true);
-	function handlekeydown(e) {
-		if(e.keyCode === 13){
-			addToDo(input);
+	useEffect(() => {
+		getToDoList();
+	}, [])
+
+	async function getToDoList() {
+		const result = await fetch (`https://assets.breatheco.de/apis/fake/todos/user/sara_moreira`);
+		const jsonResult = await result.json();
+		setToDoList(jsonResult);
+	}
+
+	async function createList() {
+		const emptyList = [];
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/sara_moreira', {
+			method: "POST",
+			body: JSON.stringify(emptyList),
+			headers: {
+			"Content-Type": "application/json"
+			}
+		})
+		.then(resp => {
+			console.log(resp.ok); // will be true if the response is successfull
+			console.log(resp.status); // the status code = 200 or code = 400 etc.
+			console.log(resp.text()); // will try return the exact result as string
+			return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+		})
+		.then(data => {
+			//here is were your code should start after the fetch finishes
+			console.log(data); //this will print on the console the exact object received from the server
+		})
+		.catch(error => {
+			//error handling
+			getToDoList();
+			console.log(error);
+		});
+	}
+
+	async function addToDo() {
+		const newToDo = {
+			label: `${input.current.value}`,
+			done: false,
 		}
+		toDoList.push(newToDo);
+
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/sara_moreira', {
+			method: "PUT",
+			body: JSON.stringify(toDoList),
+			headers: {
+			"Content-Type": "application/json"
+			}
+		})
+		.then(resp => {
+			console.log(resp.ok); // will be true if the response is successfull
+			console.log(resp.status); // the status code = 200 or code = 400 etc.
+			console.log(resp.text()); // will try return the exact result as string
+			return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+		})
+		.then(data => {
+			//here is were your code should start after the fetch finishes
+			console.log(data); //this will print on the console the exact object received from the server
+		})
+		.catch(error => {
+			//error handling
+			getToDoList();
+			console.log(error);
+		});
+	}
+
+	async function deleteTodo(todo){
+		todo.done = true;
+
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/sara_moreira', {
+			method: "PUT",
+			body: JSON.stringify(toDoList),
+			headers: {
+			"Content-Type": "application/json"
+			}
+		})
+		.then(resp => {
+			console.log(resp.ok); // will be true if the response is successfull
+			console.log(resp.status); // the status code = 200 or code = 400 etc.
+			console.log(resp.text()); // will try return the exact result as string
+			return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+		})
+		.then(data => {
+			//here is were your code should start after the fetch finishes
+			console.log(data); //this will print on the console the exact object received from the server
+		})
+		.catch(error => {
+			//error handling
+			getToDoList();
+			console.log(error);
+		});
+	}
+
+	async function deleteList(){
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/sara_moreira', {
+			method: "DELETE",
+			headers: {
+			"Content-Type": "application/json"
+			}
+		})
+		.then(resp => {
+			console.log(resp.ok); // will be true if the response is successfull
+			console.log(resp.status); // the status code = 200 or code = 400 etc.
+			console.log(resp.text()); // will try return the exact result as string
+			return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+		})
+		.then(data => {
+			console.log(data); //this will print on the console the exact object received from the server
+		})
+		.catch(error => {
+			//error handling
+			console.log(error);
+			createList();
+		});
 
 	}
 
-	window.onload = function() {
-		const firstTask ={ id: Math.random(), todo: 'Make the bed' };
-		const secondTask ={ id: Math.random(), todo: 'Wash my hands' };
-		const thirdTask ={ id: Math.random(), todo: 'Eat' };
-		const fourthTask ={ id: Math.random(), todo: 'Walk the dog' };
+	const input = useRef();
+	const [inputValue, setInputValue] = useState('');
+	var fired = false;
 
-		setList([...list, firstTask, secondTask, thirdTask, fourthTask]);
+	window.onkeydown = function(e) {
+		if(!fired && e.keyCode === 13) {
+			fired = true;
+			addToDo();
+			setInputValue('');
+		}
 	};
 
-	const addToDo = (todo) => {
-		const newTask = {
-			id: Math.random(),
-			todo: todo,
-		};
-		setList([...list, newTask]);
-		setInput('');
-	}
-
-	const deleteTodo = (id) => {
-		const newList = list.filter((todo) => todo.id !== id);
-		setList(newList);
-	}
+	window.onkeyup = function() {
+		fired = false;
+	};
 
 	return (
 		<div className='list'>
 			<ul>
-				<input
-					type="text"
-					value={input}
-					onChange={(e) => setInput(e.target.value)}
-				/>
-				{list.map((todo) => (
-					<li key={todo.id}>
-						{todo.todo}
-						<small className='erase' onClick={() => deleteTodo(todo.id)}>X</small>
-					</li>
+				<li>
+					<input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} ref={input}/>
+				</li>
+				{toDoListFilter.map(todo => (
+					<li key={todo.label}>
+					{todo.label}
+					<small className='erase' onClick={() => deleteTodo(todo)}>X</small>
+				</li>
 				))}
 			</ul>
 			<div className='footer'>
 				<small>{count} item left</small>
+				<h2 onClick={() => deleteList()}><small className='erase-all'>Delete list </small>X</h2>
 			</div>
 		</div>
 	);
