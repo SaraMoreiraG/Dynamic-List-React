@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Todo List Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a Todo List application with a front-end and back-end component. The front-end is built using React, while the back-end is implemented using a RESTful API. The application allows users to manage tasks and sync them with the backend API.
 
-## Available Scripts
+## Front-end
 
-In the project directory, you can run:
+The front-end of the Todo List application provides a user-friendly interface for managing tasks. The following guidelines are implemented:
 
-### `npm start`
+- Tasks are added when the user presses the Enter key on the keyboard or by clicking a dedicated button.
+- The delete icon is displayed when hovering over a task.
+- Users can add as many tasks as they want.
+- When there are no tasks, the list displays the message "No tasks, add a task".
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Todo List Front-end Screenshot](/images/frontend-screenshot.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Back-end
 
-### `npm test`
+The back-end of the Todo List application is implemented using React and Fetch. It interacts with a RESTful and public API to handle the tasks. The following features are supported:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- The to-do list syncs with the backend API every time a task is added or deleted.
+- A "Clean all tasks" button is provided to delete the entire list from the server and update the empty list on the front-end.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run the Todo List application locally, follow these steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository: `git clone https://github.com/SaraMoreiraG/ToDo-List-React.git`
+2. Navigate to the project directory: `cd todo-list-app`
+3. Install the dependencies: `npm install`
+4. Start the development server: `npm start`
+5. Access the application in your browser at: `http://localhost:3000`
 
-### `npm run eject`
+## Contributing
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Contributions are welcome! If you'd like to contribute to the Todo List application, please follow these steps:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/my-feature`
+3. Make your changes and commit them: `git commit -am 'Add your commit message'`
+4. Push your changes to the branch: `git push origin feature/my-feature`
+5. Submit a pull request
